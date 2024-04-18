@@ -6,4 +6,4 @@ This is a terminal script writen by Dominic Fate that enables users to play Cara
 
 This project is made mostly for personal use and learning, so don't be too harsh.
 
-WIP as of 4/18/2024
+WIP
