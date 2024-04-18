@@ -132,24 +132,40 @@ def CreatePlayerDeck(PlayerDeck):
             if con == "y" or con == "yes" or con == "y " or con == "yes  ":
                 Confirm = 1
 
-def DecideDeck(DECK):
+def DecideDeck(CDECK): #TODO make this return with success or failure to make sure a deck is selected
     ImportDECK = input("Do you want to Import a Caravan Deck? Y/N: ")
     if ImportDECK.lower() == "n":
         MakeDECK = input("Do you want to make a Caravan Deck? Y/N: ")
         if MakeDECK.lower() == "y":
-            CreatePlayerDeck(DECK)
-            NameCreatedDeck = input("What do you want to name this deck: ")
+            CreatePlayerDeck(CDECK)
+            NameCreatedDeck = input("What do you want to name this deck: ") #This area creates a deck. Pretty complicated
             NameCreatedDeck = NameCreatedDeck + ".txt"
             WFP = open(NameCreatedDeck, "w")
-            for line in DECK:
+            for line in CDECK:
                 WFP.write("%s\n" % line)
             WFP.close()
+            #Assumes that this works. But it will take the name and put a text file in the folder that the application resides in.
+            #Sorry That I don't do error checking I cannot be bothered atm
         else:
             print("Selecting default deck")
-            # TODO grab the default deck from storage
+            default = open('default.txt', 'r') # Opens the default deck and puts it into the current deck
+            Lines = default.readlines()
+
+            # Put the info in the deck
+            for Entry in Lines:
+                Entry = Entry.strip()
+                CDECK.append(Entry)
+
+
     else:
-        GrabDeck = input("Enter File Path for Caravan Deck")
-        # TODO implement importing of deck.txt
+        GrabDeck = input("Enter File Path for Caravan Deck: ") #grabs a deck from path
+        NewDeck = open(GrabDeck, 'r')  # Opens the default deck and puts it into the current deck
+        Lines = NewDeck.readlines()
+
+        # Put the info in the deck
+        for Entry in Lines:
+            Entry = Entry.strip()
+            CDECK.append(Entry)
 
 #~~~~~~~~~~~~~~~~~~~ Variables ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -162,8 +178,9 @@ BotDeck = []
 # First we must ask if they want to use the default deck or import one
 print("What do you want to do for your own Deck?")
 DecideDeck(PlayerDeck)
-
 # What should we do with the second players Deck
 print("What do you want to do for the second Deck?")
 DecideDeck(BotDeck)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Game Start ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#TODO Implement the actual game
