@@ -82,6 +82,8 @@ class GameState:
         self.PlayerRoundDeck = playerD
         self.BotRoundDeck = botD
 
+    #TODO add a print statement so that each item can be output by turns
+
     # Class to store acceding or descending caravans
     class Caravan:
         def __init__(self):
@@ -155,6 +157,7 @@ def DecideDeck(CDECK): #TODO make this return with success or failure to make su
             for Entry in Lines:
                 Entry = Entry.strip()
                 CDECK.append(Entry)
+            #TODO ensure default is at least 30
 
 
     else:
@@ -166,6 +169,7 @@ def DecideDeck(CDECK): #TODO make this return with success or failure to make su
         for Entry in Lines:
             Entry = Entry.strip()
             CDECK.append(Entry)
+        #TODO confirm the length of entry to be at least 30
 
 #~~~~~~~~~~~~~~~~~~~ Variables ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
