@@ -105,19 +105,19 @@ def SearchList(List, Search):
 # Constructor that creates the users Deck
 def CreatePlayerDeck(PlayerDeck):
     Confirm = 0
-    print("Please enter a card you would like to add to your deck.\nWARNING once added you cannot remove it\n\nYou can have 5 copies of each card\nFORMAT: <card name><suite>\n")
+    print("\n\nPlease enter a card you would like to add to your deck.\nWARNING once added you cannot remove it\n\nYou can have 5 copies of each card\nFORMAT: <card name><suite>\n")
     print("Example: AD, This is the ace of diamonds\nCards are:\nA - ace\n1-10 - Numbered cards 1-10\nJ - Jack\nQ - Queen\nK - King\nJok - Joker\nWARNING: FORMAT: JOKA and JOKB\n")
     print("Suits: D - Diamonds, C - Clubs, H - Hearts, S - Spades\n")
     while Confirm == 0:
         UserCard = input('Enter Card: ') #grabs the card entered if it is in the deck and not in hand 2 times add it to players deck.
         UserCard = UserCard.upper()
         if SearchDeck(Deck, UserCard):
-            if SearchList(PlayerDeck, UserCard) < 2:
+            if SearchList(PlayerDeck, UserCard) < 5:
                 PlayerDeck.append(UserCard)
                 print("Success: Card Accepted")
                 print(PlayerDeck)
             else:
-                print("FAULT: Check rules please, Only 2 copies of each card")
+                print("FAULT: Check rules please, Only 5 copies of each card")
         else:
             print("FAULT: Invalid card type: check rules again or look at the key values in the python code")
 
@@ -132,6 +132,26 @@ def CreatePlayerDeck(PlayerDeck):
             if con == "y" or con == "yes" or con == "y " or con == "yes  ":
                 Confirm = 1
 
+def DecideDeck(DECK):
+    ImportDECK = input("Do you want to Import a Caravan Deck? Y/N: ")
+    if ImportDECK.lower() == "n":
+        MakeDECK = input("Do you want to make a Caravan Deck? Y/N: ")
+        if MakeDECK.lower() == "y":
+            CreatePlayerDeck(DECK)
+            NameCreatedDeck = input("What do you want to name this deck: ")
+            NameCreatedDeck = NameCreatedDeck + ".txt"
+            WFP = open(NameCreatedDeck, "w")
+            for line in DECK:
+                WFP.write("%s\n" % line)
+            WFP.close()
+        else:
+            print("Selecting default deck")
+            # TODO grab the default deck from storage
+    else:
+        GrabDeck = input("Enter File Path for Caravan Deck")
+        # TODO implement importing of deck.txt
+
+#~~~~~~~~~~~~~~~~~~~ Variables ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Player's and Bot's deck that must be filled out to at least 30 cards min.
 PlayerDeck = []
@@ -139,16 +159,11 @@ BotDeck = []
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ MAIN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#first we must ask if they want to use a random deck or import one
-ImportDECK = input("Do you want to Import a Caravan Deck? Y/N")
-if ImportDECK.lower() == "n":
-    MakeDECK = input("Do you want to make a Caravan Deck? Y/N")
-    if MakeDECK == MakeDECK.lower() == "y":
-        CreatePlayerDeck(PlayerDeck)
-        #TODO write to storage the deck created
-    else:
-        print("Selecting default deck")
-        #TODO grab the default deck from storage
-else:
-    GrabDeck = input("Enter File Path for Caravan Deck")
-    #TODO implement importing of deck.txt
+# First we must ask if they want to use the default deck or import one
+print("What do you want to do for your own Deck?")
+DecideDeck(PlayerDeck)
+
+# What should we do with the second players Deck
+print("What do you want to do for the second Deck?")
+DecideDeck(BotDeck)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Game Start ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
