@@ -149,6 +149,7 @@ def DecideDeck(CDECK): #TODO make this return with success or failure to make su
             WFP.close()
             #Assumes that this works. But it will take the name and put a text file in the folder that the application resides in.
             #Sorry That I don't do error checking I cannot be bothered atm
+            # TODO add error checking. What if they put something in wrong not yes no. What if path is wrong
         else:
             print("Selecting default deck")
             default = open('default.txt', 'r') # Opens the default deck and puts it into the current deck
