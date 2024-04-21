@@ -1,6 +1,7 @@
 # Author: Dominic Fate
 # Date: 4/18/2024
 # Desc: A simple python script to play caravan from fallout new vegas within the terminal. Not as simple as I had hoped it to be
+# Version: 1.0
 
 # Dictionary that enables both building and looking up point values of each card
 Deck = {
